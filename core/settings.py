@@ -26,14 +26,6 @@ MEDIA_ROOT = MEDIA_DIR
 
 #  --------------------------==========-------------------------------
 
-# ALLOWED_HOSTS = ['fishbazar.pythonanywhere.com',
-#                  'www.fishbazar.pythonanywhere.com', 
-#                  '127.0.0.1', 
-#                  'localhost',
-#                  'fish-market.vercel.app',
-#                  '*.vercel.app',
-#                  ]
-
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
@@ -84,16 +76,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 pghost = os.getenv('PGHOST')
 if not pghost:
     print("PGHOST environment variable is not set. Please set it in your .env file.")
@@ -123,26 +105,6 @@ DATABASES = {
   }
 }
 
-# import dj_database_url
-# DATABASES = {"default": dj_database_url.config(conn_max_age=600, ssl_require=True)}
-
-
-# dbname = os.environ.get('DBNAME')
-# uname = os.environ.get('USERNAME')
-# password = os.environ.get('PASSWORD')
-# host = os.environ.get('HOST')
-# port = os.environ.get('PORT')
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': f'{dbname}',
-#         'USER': f'{uname}',
-#         'PASSWORD': f'{password}',
-#         'HOST': f'{host}',
-#         # 'PORT': f'{port}',
-#     }
-# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -174,17 +136,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-# ================ backblazeb S3 SETTINGS ================
+# ================ backblazeb S3 SETTINGS (TEMPORARILY DISABLED) ================
 
-DEFAULT_FILE_STORAGE = "core.c_storage.MediaStorage"
+# DEFAULT_FILE_STORAGE = "core.c_storage.MediaStorage"
 
-AWS_ACCESS_KEY_ID        = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY    = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME  = os.getenv("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_ENDPOINT_URL = "https://s3.us-east-005.backblazeb2.com"
-AWS_S3_REGION_NAME  = "us-east-005"
+# AWS_ACCESS_KEY_ID        = os.getenv("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY    = os.getenv("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME  = os.getenv("AWS_STORAGE_BUCKET_NAME")
+# AWS_S3_ENDPOINT_URL = "https://s3.us-east-005.backblazeb2.com"
+# AWS_S3_REGION_NAME  = "us-east-005"
 
-AWS_S3_ADDRESSING_STYLE = "virtual"
-AWS_DEFAULT_ACL = None 
-AWS_QUERYSTRING_AUTH = True
-AWS_QUERYSTRING_EXPIRE = 3600
+# AWS_S3_ADDRESSING_STYLE = "virtual"
+# AWS_DEFAULT_ACL = None 
+# AWS_QUERYSTRING_AUTH = True
+# AWS_QUERYSTRING_EXPIRE = 3600
