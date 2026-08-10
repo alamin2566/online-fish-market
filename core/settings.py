@@ -35,7 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
 
     'django_filters',
     'apps.users',
@@ -136,17 +138,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-# ================ backblazeb S3 SETTINGS (TEMPORARILY DISABLED) ================
+# ================ CLOUDINARY SETTINGS ================
 
-# DEFAULT_FILE_STORAGE = "core.c_storage.MediaStorage"
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
 
-# AWS_ACCESS_KEY_ID        = os.getenv("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY    = os.getenv("AWS_SECRET_ACCESS_KEY")
-# AWS_STORAGE_BUCKET_NAME  = os.getenv("AWS_STORAGE_BUCKET_NAME")
-# AWS_S3_ENDPOINT_URL = "https://s3.us-east-005.backblazeb2.com"
-# AWS_S3_REGION_NAME  = "us-east-005"
-
-# AWS_S3_ADDRESSING_STYLE = "virtual"
-# AWS_DEFAULT_ACL = None 
-# AWS_QUERYSTRING_AUTH = True
-# AWS_QUERYSTRING_EXPIRE = 3600
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
