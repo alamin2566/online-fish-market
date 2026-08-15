@@ -74,9 +74,15 @@ class Order(CommonBaseModel):
         choices=[("online", "Online Payment"), ("cod", "Cash on Delivery")],
         default="online"
     )
-    def get_total(self):
-     
 
+    def get_total(self):
+        total = 0
+        for item in self.ordered_items.all():
+            total += item.subtotal()
+        return total
+
+    def __str__(self) -> str:
+        return f"{self.user.name} - ID:{self.order_id}"
 
 class Review(CommonBaseModel):
     RATING_CHOICES = (
@@ -94,4 +100,3 @@ class Review(CommonBaseModel):
 class Favorite(CommonBaseModel):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE)
-
