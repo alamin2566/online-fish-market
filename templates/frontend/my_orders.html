@@ -42,7 +42,7 @@
                     <div class="d-flex justify-content-between align-items-center">                        
                         <small class="text-muted">Placed on {{ order.created_at|date:"d M Y H:i:s" }}</small>
                         <div class="manage-link mt-2">
-                            <a href="#" class="text-primary">Manage</a>
+                            <a href="{% url 'order_detail' order.order_id %}" class="text-primary">Manage</a>
                         </div>
                     </div>
                     
@@ -59,9 +59,11 @@
                             </div>
                             <span class="badge ">
                                 {% if order.payment %}
-                                Delivered on {{ order.updated_at|date:"d M Y" }}
+                                    Delivered on {{ order.updated_at|date:"d M Y" }}
+                                {% elif order.payment_method == "cod" %}
+                                    Cash on Delivery - Pending
                                 {% else %}
-                                Cancelled
+                                    Cancelled
                                 {% endif %}
                             </span>
                         </div>

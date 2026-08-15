@@ -173,12 +173,23 @@ def products(request):
 
 @login_required()
 def my_orders(request):
-    profile=request.user.profile
-    orders = Order.objects.filter(user=profile, payment=True)
-    context ={
-        "orders":orders,
+    profile = request.user.profile
+    # Show all orders for the user regardless of payment status; order newest first
+    orders = Order.objects.filter(user=profile).order_by('-created_at')
+    context = {
+        "orders": orders,
     }
     return render(request, "frontend/my_orders.html", context)
 
+
+@login_required()
+def order_detail(request, order_id):
+    profile = request.user.profile
+    # order_id is a UUIDField (not the primary key); ensure the order belongs to the logged in user
+    order = get_object_or_404(Order, order_id=order_id, user=profile)
+    context = {
+        "order": order,
+    }
+    return render(request, "frontend/order_detail.html", context)
 
 
