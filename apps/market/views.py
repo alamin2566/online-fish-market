@@ -5,6 +5,8 @@ from django.contrib import messages
 
 from apps.payment.views import payment_process
 from apps.adminpanel.forms import ContactUsMessageForm
+from django.views.decorators.http import require_http_methods
+
 from apps.market.models import *
 from apps.market.shortcuts import ObjectMaster
 from apps.market.filter import FishFilter
@@ -192,4 +194,19 @@ def order_detail(request, order_id):
     }
     return render(request, "frontend/order_detail.html", context)
 
+
+@require_http_methods(['GET','POST'])
+def contact(request):
+    """Render contact page and handle contact form submissions."""
+    if request.method == 'POST':
+        form = ContactUsMessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your message has been sent. We'll get back to you soon.")
+            return redirect('contact')
+    else:
+        form = ContactUsMessageForm()
+
+    context = { 'form': form }
+    return render(request, 'frontend/contact.html', context)
 

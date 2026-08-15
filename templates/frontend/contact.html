@@ -1,0 +1,32 @@
+{% extends "frontend/base/base.html" %}
+{% load static %}
+{% block title %}Contact Us{% endblock title %}
+{% block css %}{% endblock css %}
+
+{% block content %}
+<div class="container spad">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4 shadow-sm">
+                <h3 class="mb-3">Contact Us</h3>
+                <p>If you have any questions or need support, please send us a message using the form below.</p>
+
+                <form method="post" action="{% url 'contact' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="text-danger small mt-1">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit" class="site-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

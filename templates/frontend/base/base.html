@@ -80,7 +80,7 @@
                 </li>
                 <li><a href="#">Shops</a></li>
                 <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
                 {% if user.is_superuser %}
                 <li><a href="{% url "dashboard" %}">Admin</a></li>
                 {% endif %}
@@ -178,7 +178,7 @@
                             </li>
                             <li><a href="{% url "my_orders" %}">My Orders</a></li>
                             <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
                             {% if user.is_superuser %}
                             <li><a href="{% url "dashboard" %}">Admin</a></li>
                             {% endif %}
@@ -279,7 +279,7 @@
                             <li><a href="#">Privacy Policy</a></li>
                         </ul>
                         <ul>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
                             <li><a href="#">Shop Address</a></li>
                         </ul>
                     </div>
