@@ -183,3 +183,32 @@ def fail(request):
 @login_required
 def complete(request):
     return render(request, "frontend/pay/complete.html")
+
+
+@login_required
+def cod_order(request):
+    profile = request.user.profile
+    bill = get_object_or_404(BillingAddress, owner=profile)
+    if not bill.is_fully_filled():
+        messages.error(request, "Please fill up your billing address first!")
+        return redirect("process")
+
+    items = request.session.get('selected_items')
+    if not items:
+        messages.warning(request, "Your cart is empty!")
+        return redirect("cart")
+
+    orders = Order.objects.create(user=profile)
+    orders.payment = False
+    orders.payment_method = "cod"
+
+    for p_uid in items:
+        this_item = CartItem.objects.filter(uid=p_uid.strip(), user=profile, purchased=False)[0]
+        orders.ordered_items.add(this_item)
+        this_item.purchased = True
+        this_item.save()
+    orders.save()
+
+    request.session.pop('selected_items', None)
+    messages.success(request, "Congrats! Your order has been placed. Pay cash on delivery.")
+    return redirect("my_orders")
