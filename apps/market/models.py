@@ -67,18 +67,15 @@ class Order(CommonBaseModel):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     ordered_items = models.ManyToManyField(CartItem)
     payment = models.BooleanField(default=False)
-
     payment_id = models.CharField( max_length=300, null=True,blank=True)
     order_id = models.UUIDField(default= uuid.uuid4)
-
+    payment_method = models.CharField(
+        max_length=10,
+        choices=[("online", "Online Payment"), ("cod", "Cash on Delivery")],
+        default="online"
+    )
     def get_total(self):
-        total = 0
-        for item in self.ordered_items.all():
-            total += item.subtotal()
-        return total
      
-    def __str__(self) -> str:
-        return f"{self.user.name} - ID:{self.order_id}"
 
 
 class Review(CommonBaseModel):
