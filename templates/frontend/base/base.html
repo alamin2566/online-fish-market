@@ -342,11 +342,11 @@
 
     <!-- Auto-detect page type from whatever context variable this page passed
          to base.html (fish = product detail page, order = order confirmation
-         page, cart_items = cart page). Placed here directly (NOT inside
-         {% block js %}) because view_product.html and other pages override
-         block js as empty, which would wipe out anything put there. Since
-         base.html shares the same render context as the child template via
-         {% extends %}, these variables are available here regardless. -->
+         page, cart = cart page). Placed here directly, outside the js block
+         above, because view_product.html and other pages override that block
+         as empty, which would wipe out anything put there. Since base.html
+         shares the same render context as the child template via extends,
+         these variables are available here regardless. -->
     {% if fish %}
     <script>
         window.pageTrackingData = {
