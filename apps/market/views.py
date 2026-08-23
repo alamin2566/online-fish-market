@@ -148,7 +148,6 @@ def delete_cart_product(request, puid):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-@login_required()
 def view_product(request, slug):
     the_product = get_object_or_404(Fish, slug=slug)
     
@@ -159,7 +158,6 @@ def view_product(request, slug):
     }
     return render(request, "frontend/view_product.html", context)
 
-@login_required()
 def products(request):
     fishes = Fish.objects.all().order_by('price')
 
