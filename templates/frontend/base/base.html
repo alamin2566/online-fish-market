@@ -328,13 +328,10 @@
     <script src="{% static "js/main.js" %}"></script>
     {% block js %}{% endblock js %}
 
-    <!-- MyAnalytics Tracking -->
-    <script src="http://localhost:5000/analytics.js"></script>
-    <script>
-        MyAnalytics.init({
-            trackingId: "WEB_4DE9EEFB7F22",
-            endpoint: "http://localhost:5000/api/track"
-        });
+    <!-- Analytics System Tracking -->
+    <script
+      src="https://analytics-system-xlwp.onrender.com/tracking.js"
+      data-website-id="8bdf85e26367c217">
     </script>
 
 </body>

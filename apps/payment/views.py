@@ -155,7 +155,10 @@ def shopping(request,val_id, trans_id):
             # Clear the session
             request.session.pop('selected_items', None)
             messages.success(request, "Congrats! Your order took place.")
-            return redirect("my_orders")
+            # Redirect straight to this order's own detail page (not the list
+            # page) so base.html's "order" context variable is present and
+            # the purchase tracking event fires right after checkout.
+            return redirect("order_detail", order_id=orders.order_id)
         
         else:
             messages.warning(request,"Failed to make your order. If you paid then contact to support now!")
@@ -211,4 +214,7 @@ def cod_order(request):
 
     request.session.pop('selected_items', None)
     messages.success(request, "Congrats! Your order has been placed. Pay cash on delivery.")
-    return redirect("my_orders")
+    # Redirect straight to this order's own detail page (not the list page)
+    # so base.html's "order" context variable is present and the purchase
+    # tracking event fires right after checkout.
+    return redirect("order_detail", order_id=orders.order_id)
