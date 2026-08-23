@@ -334,55 +334,6 @@
       data-website-id="8bdf85e26367c217">
     </script>
 
-    <!-- Centralized event tracker (tracking.js). Defines window.Tracker for
-         onclick handlers and reads window.pageTrackingData on load. -->
-    <script src="{% static "js/tracking.js" %}"></script>
-
-    <!-- Auto-detect page type from whatever context variable this page passed
-         to base.html (fish = product detail page, order = order confirmation
-         page, cart = cart page). Placed here directly, outside the js block
-         above, because view_product.html and other pages override that block
-         as empty, which would wipe out anything put there. Since base.html
-         shares the same render context as the child template via extends,
-         these variables are available here regardless. -->
-    {% if fish %}
-    <script>
-        window.pageTrackingData = {
-            type: "product_view",
-            product: {
-                id: "{{ fish.uid }}",
-                name: "{{ fish.name|escapejs }}",
-                price: {{ fish.discounted_price|default:fish.price }}
-            }
-        };
-    </script>
-    {% elif order %}
-    <script>
-        window.pageTrackingData = {
-            type: "purchase",
-            orderId: "{{ order.order_id }}",
-            currency: "BDT",
-            value: {{ order.get_total }},
-            items: [
-                {% for item in order.ordered_items.all %}
-                { id: "{{ item.fish.uid }}", name: "{{ item.fish.name|escapejs }}", price: {{ item.subtotal }}, quantity: {{ item.quantity }} }{% if not forloop.last %},{% endif %}
-                {% endfor %}
-            ]
-        };
-    </script>
-    {% elif cart %}
-    <script>
-        window.pageTrackingData = {
-            type: "view_cart",
-            items: [
-                {% for the_item in cart %}
-                { id: "{{ the_item.uid }}", name: "{{ the_item.fish.name|escapejs }}", price: {{ the_item.fish.discounted_price }}, quantity: {{ the_item.quantity }} }{% if not forloop.last %},{% endif %}
-                {% endfor %}
-            ]
-        };
-    </script>
-    {% endif %}
-
 </body>
 
 </html>
