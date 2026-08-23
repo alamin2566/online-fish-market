@@ -36,11 +36,23 @@ class Offer(CommonBaseModel):
 
 class Fish(CommonBaseModel):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=120, null=True, blank=True, unique=True)
     image = models.ImageField(upload_to="Fishes")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     discount = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     # offers = models.ManyToManyField(Offer, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+            while Fish.objects.filter(slug=slug).exclude(uid=self.uid).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def discounted_price(self):
         if self.discount:

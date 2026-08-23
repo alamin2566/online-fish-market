@@ -149,8 +149,8 @@ def delete_cart_product(request, puid):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required()
-def view_product(request, uid):
-    the_product = get_object_or_404(Fish, uid = uid)
+def view_product(request, slug):
+    the_product = get_object_or_404(Fish, slug=slug)
     
     referring_url = request.META.get('HTTP_REFERER')
 
@@ -209,4 +209,3 @@ def contact(request):
 
     context = { 'form': form }
     return render(request, 'frontend/contact.html', context)
-
