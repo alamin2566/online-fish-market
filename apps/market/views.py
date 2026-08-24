@@ -182,11 +182,9 @@ def my_orders(request):
     return render(request, "frontend/my_orders.html", context)
 
 
-@login_required()
 def order_detail(request, order_id):
-    profile = request.user.profile
-    # order_id is a UUIDField (not the primary key); ensure the order belongs to the logged in user
-    order = get_object_or_404(Order, order_id=order_id, user=profile)
+    # order_id is a UUIDField (not the primary key); publicly viewable via direct link
+    order = get_object_or_404(Order, order_id=order_id)
     context = {
         "order": order,
     }
