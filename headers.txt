@@ -1,0 +1,16 @@
+HTTP/2 200 
+age: 0
+cache-control: public, max-age=0, must-revalidate
+content-type: text/html; charset=utf-8
+cross-origin-opener-policy: same-origin
+date: Mon, 24 Aug 2026 11:09:44 GMT
+referrer-policy: same-origin
+server: Vercel
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+vary: Cookie
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-vercel-cache: MISS
+x-vercel-id: bom1::iad1::k9nml-1787569784135-2f0f6548caeb
+content-length: 20399
+
